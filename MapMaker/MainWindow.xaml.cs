@@ -29,14 +29,15 @@ namespace MapMaker
 
         private static readonly Dictionary<int, Tuple<Color, string>> options = new Dictionary<int, Tuple<Color, string>>
         {
-            {0, new Tuple<Color, string>(Colors.White, "Nothing") },
+            {0, new Tuple<Color, string>(Colors.White, "NOTHING") },
             {1, new Tuple<Color, string>(Colors.Blue, "WALL 1") },
             {2, new Tuple<Color, string>(Colors.Red, "WALL 2") },
-            {3, new Tuple<Color, string>(Colors.Yellow, "DOOR") }
+            {3, new Tuple<Color, string>(Colors.Yellow, "DOOR") },
+            {4, new Tuple<Color, string>(Colors.Orange, "ENEMY") }
         };
 
         private const int minimum = 0;
-        private const int maximum = 3;
+        private const int maximum = 4;
 
         public MainWindow()
         {
@@ -74,14 +75,12 @@ namespace MapMaker
                     Button button = new Button
                     {
                         Content = "0",
+                        Width = width,
+                        Height = height,
                         Background = new SolidColorBrush(Colors.White),
-                        Tag = $"{i}:{j}"
                     };
-                    // Set the width and height of the button
-                    button.Width = width;
-                    button.Height = height;
 
-                    button.Click += Grid_Button_Click;
+                    button.PreviewMouseDown += Grid_Button_Preview_Mouse_Down;
                     Board.Children.Add(button);
                     Grid.SetRow(button, i);
                     Grid.SetColumn(button, j);
@@ -89,12 +88,12 @@ namespace MapMaker
             }
         }
 
-        private void Grid_Button_Click(object sender, RoutedEventArgs e)
+        private void Grid_Button_Preview_Mouse_Down(object sender, MouseButtonEventArgs e)
         {
             Button button = (Button)sender!;
-            Debug.Write($"Button: {button.Tag}");
             int.TryParse(button.Content.ToString(), out int value);
-            if(++value > maximum) { value = minimum; }
+            if (++value > maximum) { value = minimum; }
+            if (e.ChangedButton == MouseButton.Right) value = minimum;
             Tuple<Color, string> info = options[value];
             button.Content = value.ToString();
             button.Background = new SolidColorBrush(info.Item1);
