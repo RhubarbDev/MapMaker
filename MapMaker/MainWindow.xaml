@@ -1,0 +1,33 @@
+﻿<Window x:Class="MapMaker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MapMaker"
+        mc:Ignorable="d"
+        Title="I'm the map!" Height="750" Width="800" Background="LightBlue" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Popup Name="popup" IsOpen="False" StaysOpen="False">
+            <Border BorderBrush="Black" BorderThickness="2" Background="LightGray">
+                <TextBlock x:Name="popupText" Margin="10"/>
+            </Border>
+        </Popup>
+        <Grid Name="Board" Grid.Row="0" Margin="5, 5, 5, 2.5" Background="LightGray"/>
+        <Grid x:Name="Controls" Grid.Row="1" Margin="5, 2.5, 5, 5" Background="RoyalBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Name="Size" PreviewTextInput="Size_PreviewTextInput" TextChanged="Size_TextChanged" LostFocus="Size_LostFocus" FontSize="48" TextAlignment="Center" BorderThickness="0" Padding="4" Margin="2, 2, 1, 2"/>
+            <Button Grid.Column="1" x:Name="Reset" Content="Resest" Click="Reset_Click" Margin="2, 2, 1, 2"/>
+            <Button Grid.Column="2" x:Name="Key" Content="Key" Click="Key_Click" Margin="1, 2, 1, 2"/>
+            <Button Grid.Column="3" x:Name="Save" Content="Save" Click="Save_Click" Margin="1, 2, 2, 2"/>
+        </Grid>
+    </Grid>
+</Window>
